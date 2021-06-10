@@ -1,10 +1,11 @@
 import { useState } from "react"
 import "./App.css"
-import marked from "marked"
 
-marked.setOptions({
-  breaks: true
-})
+//components
+import MarkInput from "./components/MarkInput"
+import MarkOutput from "./components/MarkOutput"
+
+// default state
 const placeholder = `# Welcome to my React Markdown Previewer!
 
 ## This is a sub-heading...
@@ -52,22 +53,10 @@ And here. | Okay. | I think we get it.
 function App() {
   const [markInput, setMarkInput] = useState(placeholder)
 
-  function handleChangeMarkInput(e) {
-    setMarkInput(e.target.value)
-  }
-
   return (
     <div className="App">
-      <div className="mark-input-div">
-        <h2>Write your text in the box</h2>
-        <textarea className="input" value={markInput} onChange={handleChangeMarkInput} />
-      </div>
-      <div
-        className="mark-output-div"
-        dangerouslySetInnerHTML={{
-          __html: marked(markInput)
-        }}
-      />
+      <MarkInput setMarkInput={setMarkInput} markInput={markInput} />
+      <MarkOutput markInput={markInput} />
     </div>
   )
 }
